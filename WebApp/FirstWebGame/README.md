@@ -1,0 +1,1 @@
+That's where your WebGL build should go.
