@@ -62,3 +62,7 @@ If you do not want to serve the game from your server (i.e. browser game) but in
 npm install
 node simple-app.js
 ```
+
+Note that I have only tested for Windows builds.
+
+Note also that the initial package of Kyle does not have an automatic reconnection mechanism in case connection with the socket is lost.
