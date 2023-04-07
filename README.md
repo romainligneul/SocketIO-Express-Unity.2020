@@ -31,21 +31,21 @@ Copy app.js and package.json files into WebApp (or whatever name you chose for t
 
 If you have changed the name of your build folder, change 'FirstWebGame' accordingly in the following lines:
 
-´´´
+```
 app.use(express.static(path.join(__dirname, 'FirstWebGame')));
 
 app.get('/', (req, res) => {
   res.header('Content-Encoding', 'gzip');
   res.sendFile(path.join(__dirname, + '/FirstWebGame/index.html'));
 })
-´´´
+```
 
 Open a terminal and type
 
-´´´
+```
 npm install
 node app.js
-´´´
+```
 
 Navigate to http://localhost:3000
 
