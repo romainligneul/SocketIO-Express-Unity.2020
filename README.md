@@ -40,7 +40,7 @@ Universal Windows Platform builds should also work.
 ## Run an ExpressJS server: WebGL builds
 
 To run the game with an ExpressJS server, build your WebGL in a subfolder (e.g. 'game') of a folder that your will use for the webapp (e.g. 'server'), hence creating a hierarchy server/game.
-Put the app.js file and the package.json files in the 'server' folder.
+Put the app.js file and the package.json files in the 'server' folder as shown here.
 Open a command line and type
 ```
 npm install
