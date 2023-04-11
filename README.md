@@ -6,7 +6,7 @@ The history of SocketIO and Unity is a succession of incremental updates and sma
 Other repos exists, but I only found one which provided a tool compatible with WebGL (on top of other platforms):
 https://github.com/KyleDulce/Unity-Socketio
 
-Since that project is not actively maintained it required a workaround to make it work with new versions of Unity. My repo is also not actively maintained and relies largely on the work of KyleDulce (Socket methods are described in the Wiki of their repository), but it is updated and it contains a new WebGL template and additional tips that avoids the workaround and help making the protocol work with newer version of Unity 
+Since that project is not actively maintained it required a workaround to make it work with new versions of Unity. My repo is also not actively maintained and relies largely on the work of KyleDulce (Socket methods are described in the Wiki of their repository), but it is updated and it contains a new WebGL template and additional tips that avoid to implement the workaround and help making the protocol work with newer versions of Unity.
 
 ## Requirements
 - Have Unity 2020 (might work on 2021 too) installed and a starter project correctly configured (I used the microplatform template for the tests).
