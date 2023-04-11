@@ -1,0 +1,21 @@
+{
+    "name": "pt.robustcircuit",
+    "version": "1.2.3",
+    "displayName": "SocketIO.Unity",
+    "description": "Connection to websocket",
+    "unity": "2019.1",
+    "unityRelease": "0b5",
+    "documentationUrl": "https://github.com/romainligneul/SocketIO-Express-Unity.2020",
+    "changelogUrl": "https://github.com/romainligneul/SocketIO-Express-Unity.2020/CHANGELOG.md",
+    "licensesUrl": "https://github.com/romainligneul/SocketIO-Express-Unity.2020/LICENSE",
+    "keywords": [
+        "websocket",
+        "socketio",
+        "nodejs"
+    ],
+    "author": {
+        "name": "Romain Ligneul",
+        "email": "romain.ligneul@gmail.com",
+        "url": "https://github.com/romainligneul/"
+    }
+}

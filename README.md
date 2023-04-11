@@ -6,63 +6,50 @@ The history of SocketIO and Unity is a succession of incremental updates and sma
 Other repos exists, but I only found one which provided a tool compatible with WebGL (on top of other platforms):
 https://github.com/KyleDulce/Unity-Socketio
 
-Since that project is not actively maintained it required a workaround to make it work with new versions of Unity. 
-
-Therefore, the present project is mainly a fork of Kyle's repo, and with a few improvements and more detailed/complete explanations.
+Since that project is not actively maintained it required a workaround to make it work with new versions of Unity. My repo is also not actively maintained and relies largely on the work of KyleDulce (Socket methods are described in the Wiki of their repository), but it is updated and it contains a new WebGL template and additional tips that avoids the workaround and help making the protocol work with newer version of Unity 
 
 ## Requirements
-- Have Unity 2020 (might work on 2021) installed and a starter project correctly configured (I used the microplatform template for the tests).
+- Have Unity 2020 (might work on 2021 too) installed and a starter project correctly configured (I used the microplatform template for the tests).
 - Have Nodejs installed.
 
 ## Modify the Unity project
 
-- first of all, if WebGL is to be used with Nodejs, it is easier to activate the "Decompression fallback" (Edit->Project Settings->Player->Publication Settings: tick the box)
-- create (if it does not exist) a Plugins folder in Assets. Copy-paste the folder Unity-SocketIO found in ForUnity.
-- in the folder Scripts (still in Assets), copy-paste the folder SocketIO-Scripts found in ForUnity.
-- copy the folder SocketIO-Demo found in ForUnity directly in the Scripts folder itself. The Demo.cs contained in this folder is where you will setup the callbacks associated with socket events (both in and out)
-- copy the folder WebGLTemplates found in ForUnity directly in the Assets folder itself
-- select the embedded template for use by the WebGL build process (Edit->Project Settings->Player->WebGL->Resolution and presentation: select 'Custom')
-
-In theory Unity should be properly configured at this stage. You can run the command 'Build and Run' (after switching to WebGL), to see whether everything works well. Unity will ask you to select an output folder. Create a folder for your webapp (e.g. 'WebApp') and inside create a folder with the name of your game (e.g. 'FirstWebGame'). Select this second folder for the build.
-
-## Run the ExpressJS server: WebGL builds
-
-Copy app.js and package.json files into WebApp (or whatever name you chose for that top level folder).
-
-If you have changed the name of your build folder, change 'FirstWebGame' accordingly in the following lines:
-
+### General steps
+1. Download this Github repository
+2. Import Assets-SocketIO-Unity.unitypackage file in your Unity project
+3. Go to Assets/Scripts/Demo/Demo.cs and change the following line to make it point to your server URL. It might be a localhost if you develop locally (you can check the server template app.js)
 ```
-app.use(express.static(path.join(__dirname, 'FirstWebGame')));
-
-app.get('/', (req, res) => {
-  res.header('Content-Encoding', 'gzip');
-  res.sendFile(path.join(__dirname, + '/FirstWebGame/index.html'));
-})
+s = SocketIo.establishSocketConnection("URL of your server goes here");
 ```
+4. Add the Demo script as a Component to a persistent Gameobject, for example the Camera. Alternatively, you can use the [https://docs.unity3d.com/ScriptReference/Object.DontDestroyOnLoad.html](DontDestroyOnLoad) approach.
 
-Open a terminal and type
+### To enable WebGL use
 
+1. Go to Edit / Project Settings / Player / WebGL settings / Publishing Settings and tick the "Decompression fallback" box
+2. Import WebGLTemplate-SocketIO-Unity.unitypackage file in your Unity project
+3. Go to Edit / Project Settings / Player / WebGL settings / Resolution and Presentation and chose the 'Custom' WebGL template that adds socketio functionality to your index.html game page.
+
+Note that in WebGL mode, the socket won't work when you are in the editor. You need to build and run to make it work.
+
+### To enable Standalone use
+Go to Edit / Project Settings / Player / Settings for PC, MAC, Linux standalone / Other Settings and make sure that Api Compatibility Level is set to .NET 4.x in the Configuration section
+
+Note that the Standalone use has only been tested under Windows.
+Universal Windows Platform builds should also work.
+
+## Run an ExpressJS server: WebGL builds
+
+To run the game with an ExpressJS server, build your WebGL in a subfolder (e.g. 'game') of a folder that your will use for the webapp (e.g. 'server'), hence creating a hierarchy server/game.
+Put the app.js file and the package.json files in the 'server' folder.
+Open a command line and type
 ```
 npm install
 node app.js
 ```
-
 Navigate to http://localhost:3000
 
-You should see a confirmation that the socket is well connected in your terminal.
+You should see the game loading and a confirmation that the socket is well connected in your terminal.
 
 You can start to mess around!
 
-
-## Run the ExpressJS server: Other builds (e.g. Windows, Android, etc.)
-
-If you do not want to serve the game from your server (i.e. browser game) but instead run it directly as a desktop or smartphone app, but that you would still like to enjoy a bidirectional communication between your game and the server, then you just have to run in the terminal:
-
-```
-npm install
-node simple-app.js
-```
-
-Note that I have only tested for Windows builds.
-
-Note also that the initial package of Kyle does not have an automatic reconnection mechanism in case connection with the socket is lost.
+Note that the app.js file contains commented methods to send your data to MongoDB (either local or cloud as a function of NODE_ENV variable)
